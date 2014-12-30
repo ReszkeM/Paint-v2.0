@@ -6,8 +6,11 @@
                   Style="{StaticResource ResourceKey=BlankWindow}" 
                   Width="860" 
                   Height="640">
-    <StackPanel>
+    <DockPanel
+        Background="#FFE6E6E6" 
+        Margin="1">
         <Menu 
+            DockPanel.Dock="Top"
             Height="25">
             <Menu.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -117,5 +120,63 @@
             		Click="Rotate180_Click" />
             </MenuItem>
         </Menu>
-    </StackPanel>
+        <GroupBox 
+            DockPanel.Dock="Top"
+            Height="70"
+            Width="auto" 
+            BorderBrush="{x:Null}">
+            <GroupBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFD3CCCC" Offset="0.5"/>
+                </LinearGradientBrush>
+            </GroupBox.Background>
+        </GroupBox>
+        <ScrollViewer
+            DockPanel.Dock="Top"
+			Height="auto"
+			Width="auto"
+			VerticalScrollBarVisibility="Auto"
+			HorizontalScrollBarVisibility="Auto">
+            <Canvas
+				Name="Paint_surface"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				MouseLeftButtonDown="MouseDown_Click"
+				MouseUp="MouseUp_Click"
+				MouseMove="Mouse_Move"
+                MouseLeave="Mouse_Leave"
+				Height="350"
+				Width="450"
+                Margin="5" 
+				Background="#FFFFFFFF">
+                <Canvas.Effect>
+                    <DropShadowEffect 
+                        BlurRadius="15"
+                        Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                </Canvas.Effect>
+            </Canvas>
+        </ScrollViewer>
+        <StatusBar
+            DockPanel.Dock="Bottom"
+            VerticalAlignment="Bottom" 
+            Height="30"
+            Width="auto" Background="#FFD4D4D4">
+            <Label
+                Name="Position" 
+                Width="100"
+                Height="25"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                VerticalContentAlignment="Center" 
+                Content="" />
+        </StatusBar>
+        <Border 
+            DockPanel.Dock="Bottom"
+            VerticalAlignment="Bottom" 
+            Background="Black"
+            Width="auto"
+            Height="1"/>
+    </DockPanel>
 </mui:ModernWindow>
