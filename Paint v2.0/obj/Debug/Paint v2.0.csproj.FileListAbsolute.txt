@@ -1,0 +1,13 @@
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.csprojResolveAssemblyReference.cache
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\MainWindow.baml
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\App.baml
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\MainWindow.g.cs
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\App.g.cs
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0_MarkupCompile.cache
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.g.resources
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\Paint v2.0.exe
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\Paint v2.0.pdb
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\FirstFloor.ModernUI.dll
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\FirstFloor.ModernUI.xml
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.exe
+D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.pdb

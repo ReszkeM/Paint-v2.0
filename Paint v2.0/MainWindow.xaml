@@ -1,0 +1,121 @@
+﻿<mui:ModernWindow x:Class="Paint_v2._0.Paint"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                  Title="Paint" 
+                  Style="{StaticResource ResourceKey=BlankWindow}" 
+                  Width="860" 
+                  Height="640">
+    <StackPanel>
+        <Menu 
+            Height="25">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
+                </LinearGradientBrush>
+            </Menu.Background>
+            <MenuItem
+                Header="_File" 
+                Width="40" 
+                Height="25" 
+                StaysOpenOnClick="True" 
+                FontSize="14">
+                <MenuItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
+                    </LinearGradientBrush>
+                </MenuItem.Background>
+                <MenuItem
+            		Header="_New"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="New_Click" />
+                <Separator/>
+                <MenuItem
+            		Header="_Open"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Open_Click" />
+                <MenuItem
+            		Header="_Save"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Save_Click" />
+                <Separator />
+                <MenuItem
+            		Header="_Exit"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Exit_Click" />
+            </MenuItem>
+            <MenuItem
+                Header="_Edit" 
+                Width="40" 
+                Height="25" 
+                StaysOpenOnClick="True" 
+                FontSize="14">
+                <MenuItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
+                    </LinearGradientBrush>
+                </MenuItem.Background>
+                <MenuItem
+            		Header="_Undo"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Undo_Click" />
+                <MenuItem
+            		Header="_Redo"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Redo_Click" />
+            </MenuItem>
+            <MenuItem
+                Header="_View" 
+                Width="45" 
+                Height="25" 
+                StaysOpenOnClick="True" 
+                FontSize="14">
+                <MenuItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
+                    </LinearGradientBrush>
+                </MenuItem.Background>
+                <MenuItem
+            		Header="_Vertical flip"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="VerticalFlip_Click" />
+                <MenuItem
+            		Header="_Horizontal flip"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="HorizontalFlip_Click" />
+                <Separator/>
+                <MenuItem
+            		Header="_Rotate 90 degrees to right"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="RightRotate_Click" />
+                <MenuItem
+            		Header="_Rotate 90 degrees to left"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="LeftRotate_Click" />
+                <MenuItem
+            		Header="_Rotate 180 degrees"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            		Click="Rotate180_Click" />
+            </MenuItem>
+        </Menu>
+    </StackPanel>
+</mui:ModernWindow>
