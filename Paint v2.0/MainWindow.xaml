@@ -7,31 +7,17 @@
                   Width="860" 
                   Height="640">
     <DockPanel
-        Background="#FFE6E6E6" 
-        Margin="1">
+        Background="#FFAEA3A3">
         <Menu 
             DockPanel.Dock="Top"
-            Height="25">
-            <Menu.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White"/>
-                    <GradientStop Color="White" Offset="1"/>
-                    <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
-                </LinearGradientBrush>
-            </Menu.Background>
+            Height="25"
+            Margin="1,1,1,0" Background="#FFDEE7EC">
             <MenuItem
                 Header="_File" 
                 Width="40" 
                 Height="25" 
                 StaysOpenOnClick="True" 
-                FontSize="14">
-                <MenuItem.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
-                    </LinearGradientBrush>
-                </MenuItem.Background>
+                FontSize="14" Background="#FFDEE7EC">
                 <MenuItem
             		Header="_New"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
@@ -60,14 +46,7 @@
                 Width="40" 
                 Height="25" 
                 StaysOpenOnClick="True" 
-                FontSize="14">
-                <MenuItem.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
-                    </LinearGradientBrush>
-                </MenuItem.Background>
+                FontSize="14" Background="#FFDEE7EC">
                 <MenuItem
             		Header="_Undo"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
@@ -84,14 +63,7 @@
                 Width="45" 
                 Height="25" 
                 StaysOpenOnClick="True" 
-                FontSize="14">
-                <MenuItem.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="#FFE7E9EA" Offset="0.537"/>
-                    </LinearGradientBrush>
-                </MenuItem.Background>
+                FontSize="14" Background="#FFDEE7EC">
                 <MenuItem
             		Header="_Vertical flip"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
@@ -120,63 +92,287 @@
             		Click="Rotate180_Click" />
             </MenuItem>
         </Menu>
-        <GroupBox 
+        <DockPanel 
             DockPanel.Dock="Top"
-            Height="70"
-            Width="auto" 
-            BorderBrush="{x:Null}">
-            <GroupBox.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                    <GradientStop Color="#FFD3CCCC" Offset="0.5"/>
-                </LinearGradientBrush>
-            </GroupBox.Background>
-        </GroupBox>
-        <ScrollViewer
-            DockPanel.Dock="Top"
-			Height="auto"
-			Width="auto"
-			VerticalScrollBarVisibility="Auto"
-			HorizontalScrollBarVisibility="Auto">
+            Margin="1,0,1,1"
+            Height="80" 
+            Background="#FFDEE7EC">
+            <DockPanel.Effect>
+                <DropShadowEffect 
+                    BlurRadius="15"
+                    Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}" 
+                    Direction="90" ShadowDepth="3" Opacity="0.8"/>
+            </DockPanel.Effect>
+            <Image 
+                Height="60" 
+                Width="60"
+                Margin="5,5,0,2" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+                <Image.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Color wheel</TextBlock>
+                            <TextBlock>Click to pick color.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Image.ToolTip>
+            </Image>
             <Canvas
-				Name="Paint_surface"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Left"
-				MouseLeftButtonDown="MouseDown_Click"
-				MouseUp="MouseUp_Click"
-				MouseMove="Mouse_Move"
-                MouseLeave="Mouse_Leave"
-				Height="350"
-				Width="450"
-                Margin="5" 
-				Background="#FFFFFFFF">
-                <Canvas.Effect>
-                    <DropShadowEffect 
-                        BlurRadius="15"
-                        Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
-                </Canvas.Effect>
+                Name="showDrawingColor"
+                Height="40" 
+                Width="40"
+                Margin="5,5,0,2" 
+                Background="#FF000000"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+                <Canvas.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Color</TextBlock>
+                            <TextBlock>Drawing color.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Canvas.ToolTip>
             </Canvas>
-        </ScrollViewer>
-        <StatusBar
-            DockPanel.Dock="Bottom"
-            VerticalAlignment="Bottom" 
-            Height="30"
-            Width="auto" Background="#FFD4D4D4">
-            <Label
-                Name="Position" 
-                Width="100"
-                Height="25"
+            <Label 
+                Content="Color" 
+                Height="18" 
+                Width="auto"
+                Margin="-36,45,0,5" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                />
+            <Label 
+                Content="Colors" 
+                Height="18" 
+                Width="auto"
+                Margin="-65,0,0,0" 
+                VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
+                FontSize="10"
+                />
+            <Rectangle 
+                Stroke="#FF92A3A6" 
                 VerticalAlignment="Center" 
-                VerticalContentAlignment="Center" 
-                Content="" />
-        </StatusBar>
-        <Border 
-            DockPanel.Dock="Bottom"
-            VerticalAlignment="Bottom" 
-            Background="Black"
-            Width="auto"
-            Height="1"/>
+                HorizontalAlignment="Left"
+                Margin="5,0"
+                Width="1"
+                Height="70"/>
+
+            <Button
+                Name="PencilButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Pencil_Click"
+                Margin="0,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Pencil</TextBlock>
+                            <TextBlock>Click to draw with pencil.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Name="EraserButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Eraser_Click"
+                Margin="2,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Eraser</TextBlock>
+                            <TextBlock>Click to use eraser.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Name="FillButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Fill_Click"
+                Margin="2,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Fill</TextBlock>
+                            <TextBlock>Click to fill area with color.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Name="ColorPickerButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="ColorPicker_Click"
+                Margin="2,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">ColorPicker</TextBlock>
+                            <TextBlock>Click to get color from pixel.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Label 
+                Content="Items" 
+                Height="18" 
+                Width="auto"
+                Margin="-75,0,0,0" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                FontSize="10"
+                />
+            <Rectangle 
+                Stroke="#FF92A3A6" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
+                Margin="5,0"
+                Width="1"
+                Height="70"/>
+
+            <Button
+                Name="RectangleButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Rectangle_Click"
+                Margin="0,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Rectangle</TextBlock>
+                            <TextBlock>Click to draw an rectangle.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Name="EllipseButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Ellipse_Click"
+                Margin="2,20,0,5">
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Ellipse</TextBlock>
+                            <TextBlock>Click to draw an ellipse.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button
+                Name="LineButton"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Click="Line_Click"
+                Margin="2,20,0,5" >
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Line</TextBlock>
+                            <TextBlock>Click to draw an line.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip> 
+            </Button>
+            <Label 
+                Content="Shapes" 
+                Height="18" 
+                Width="auto"
+                Margin="-63,0,0,0" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                FontSize="10"
+                />
+            <Rectangle 
+                Stroke="#FF92A3A6" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
+                Margin="5,0"
+                Width="1"
+                Height="70"/>
+        </DockPanel>
+        <DockPanel
+            Margin="1,0,1,1"
+            Background="#FFC6D3DA">
+            <StatusBar
+                DockPanel.Dock="Bottom"
+                VerticalAlignment="Bottom" 
+                Height="25"
+                Width="auto" 
+                Background="#FFD3DADE">
+                <Label
+                    Name="Position" 
+                    Width="100"
+                    Height="25"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" 
+                    VerticalContentAlignment="Center" 
+                    Content="" />
+                <Label
+                    Name="CanvasSize" 
+                    Width="100"
+                    Height="25"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" 
+                    VerticalContentAlignment="Center" 
+                    Content="450 x 350px" />
+            </StatusBar>
+            <ScrollViewer
+                DockPanel.Dock="Top"
+			    Height="auto"
+			    Width="auto"
+			    VerticalScrollBarVisibility="Auto"
+			    HorizontalScrollBarVisibility="Auto">
+                <Canvas
+				    Name="paintSurface"
+				    VerticalAlignment="Top"
+				    HorizontalAlignment="Left"
+				    MouseLeftButtonDown="MouseDown_Click"
+				    MouseUp="MouseUp_Click"
+				    MouseMove="Mouse_Move"
+                    MouseLeave="Mouse_Leave"
+				    Height="350"
+				    Width="450"
+                    Margin="5" 
+				    Background="#FFFFFFFF">
+                    <Canvas.Effect>
+                        <DropShadowEffect 
+                            BlurRadius="15"
+                            Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                    </Canvas.Effect>
+                </Canvas>
+            </ScrollViewer>
+
+            <Border 
+                DockPanel.Dock="Bottom"
+                VerticalAlignment="Bottom" 
+                Background="#FFAEA3A3"
+                Width="auto"
+                Height="1"/>
+        </DockPanel>
     </DockPanel>
 </mui:ModernWindow>
+    
+    

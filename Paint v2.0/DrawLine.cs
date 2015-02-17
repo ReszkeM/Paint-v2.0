@@ -6,20 +6,27 @@ namespace Paint_v2._0
 {
     class DrawLine : Draw
     {
-        DrawLine(Brush brushColor, int brushThick)
+        private Line myLine;
+
+        public DrawLine(Brush brushColor, int brushThick)
         {
-            _shape = new Line();
-            _shape.Stroke = brushColor;
-            _shape.StrokeThickness = brushThick;
+            myLine = new Line();
+            myLine.Stroke = brushColor;
+            myLine.StrokeThickness = brushThick;
         }
 
-        public override void getEndCords(double X, double Y)
+        protected override void setCordsToFigure()
         {
-            //remove old ellipse
+            myLine.X1 = x1;
+            myLine.Y1 = y1;
 
-            base.getEndCords(X, Y);
+            myLine.X2 = x2;
+            myLine.Y2 = y2;
+        }
 
-            //draw new ellipse
+        public override Shape returnShape()
+        {
+            return myLine;
         }
     }
 }

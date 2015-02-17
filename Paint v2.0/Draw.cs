@@ -5,44 +5,50 @@ namespace Paint_v2._0
 {
     public abstract class Draw
     {
-        protected double _x1, _x2, _y1, _y2;
-        protected Shape _shape;
-       
+        protected double x1, x2, y1, y2;
+        protected double tmpX1, tmpX2, tmpY1, tmpY2;
+        //protected Shape _shape;
+
         public void getStartCords(double X, double Y)
         {
-            _x1 = X;
-            _y1 = Y;
+            x1 = X;
+            y1 = Y;
         }
 
-        public virtual void getEndCords(double X, double Y)
+        public void getEndCords(double X, double Y)
         {
-            _x2 = X;
-            _y2 = Y;
+            x2 = X;
+            y2 = Y;
+
+            setCordsToFigure();
         }
+
+        protected abstract void setCordsToFigure();
+
+        public abstract Shape returnShape();
 
         protected void checkCords()
         {
-            if (_x2 <= _x1)
+            if (x2 <= x1)
             {
-                double tmp = _x2;
-                _x2 = _x1;
-                _x1 = tmp;
+                tmpX1 = x2;
+                tmpX2 = x1;
             }
-            if (_y2 <= _y1)
+            else
             {
-                double tmp = _y2;
-                _y2 = _y1;
-                _y1 = tmp;
+                tmpX1 = x1;
+                tmpX2 = x2;
             }
-
-            _shape.Width = _x2 - _x1;
-            _shape.Height = _y2 - _y1;
-
-            //Canvas.SetLeft(_shape, _x1);
-            //Canvas.SetTop(_shape, _y1);
-
-            //Paint_surface.Children.Add(Ellipse);
-            //Options.GetObjects(Ellipse);
+            if (y2 <= y1)
+            {
+                tmpY1 = y2;
+                tmpY2 = y1;
+            }
+            else
+            {
+                tmpY1 = y1;
+                tmpY2 = y2;
+            }
         }
     }
 }

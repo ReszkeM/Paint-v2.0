@@ -1,26 +1,35 @@
 ﻿using System;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Paint_v2._0
 {
     class DrawRectangle : Draw
     {
-        DrawRectangle(Brush brushColor, int brushThick)
+        private Rectangle myRectangle;
+
+        public DrawRectangle(Brush brushColor, int brushThick)
         {
-            _shape = new Rectangle();
-            _shape.Stroke = brushColor;
-            _shape.StrokeThickness = brushThick;
+            myRectangle = new Rectangle();
+            myRectangle.Stroke = brushColor;
+            myRectangle.StrokeThickness = brushThick;
         }
 
-        public override void getEndCords(double X, double Y)
+        protected override void setCordsToFigure()
         {
-            //remove old ellipse
-
-            base.getEndCords(X, Y);
             checkCords();
 
-            //draw new ellipse
+            myRectangle.Width = tmpX2 - tmpX1;
+            myRectangle.Height = tmpY2 - tmpY1;
+
+            Canvas.SetLeft(myRectangle, tmpX1);
+            Canvas.SetTop(myRectangle, tmpY1);
+        }
+
+        public override Shape returnShape()
+        {
+            return myRectangle;
         }
     }
 }

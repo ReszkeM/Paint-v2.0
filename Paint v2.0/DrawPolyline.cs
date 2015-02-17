@@ -1,25 +1,36 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Paint_v2._0
 {
     class DrawPolyline : Draw
     {
-        DrawPolyline(Brush brushColor, int brushThick)
+        private Polyline myPolyline;
+        private PointCollection myPointCollection;
+
+        public DrawPolyline(Brush brushColor, int brushThick)
         {
-            _shape = new Polyline();
-            _shape.Stroke = brushColor;
-            _shape.StrokeThickness = brushThick;
+            myPolyline = new Polyline();
+            myPolyline.Stroke = brushColor;
+            myPolyline.StrokeThickness = brushThick;
+            myPolyline.FillRule = FillRule.EvenOdd;
+
+            myPointCollection = new PointCollection();
         }
 
-        public override void getEndCords(double X, double Y)
+        protected override void setCordsToFigure()
         {
-            //remove old ellipse
+            Point Point = new Point(x2, y2);
+            myPointCollection.Add(Point);
+            myPolyline.Points = myPointCollection;
+        }
 
-            base.getEndCords(X, Y);
-
-            //draw new ellipse
+        public override Shape returnShape()
+        {
+            return myPolyline;
         }
     }
 }

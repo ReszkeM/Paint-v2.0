@@ -1,26 +1,35 @@
 ﻿using System;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Paint_v2._0
 {
     class DrawEllipse : Draw
     {
-        DrawEllipse(Brush brushColor, int brushThick)
+        private Ellipse myEllipse;
+
+        public DrawEllipse(Brush brushColor, int brushThick)
         {
-            _shape = new Ellipse();
-            _shape.Stroke = brushColor;
-            _shape.StrokeThickness = brushThick;
+            myEllipse = new Ellipse();
+            myEllipse.Stroke = brushColor;
+            myEllipse.StrokeThickness = brushThick;
         }
 
-        public override void getEndCords(double X, double Y)
+        protected override void setCordsToFigure()
         {
-            //remove old ellipse
-
-            base.getEndCords(X, Y);
             checkCords();
 
-            //draw new ellipse
+            myEllipse.Width = tmpX2 - tmpX1;
+            myEllipse.Height = tmpY2 - tmpY1;
+
+            Canvas.SetLeft(myEllipse, tmpX1);
+            Canvas.SetTop(myEllipse, tmpY1);
+        }
+
+        public override Shape returnShape()
+        {
+            return myEllipse;
         }
     }
 }
