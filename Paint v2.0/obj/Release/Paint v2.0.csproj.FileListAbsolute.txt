@@ -11,3 +11,16 @@ D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0_MarkupCompile.cach
 D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.g.resources
 D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.exe
 D:\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.exe
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\Paint v2.0.exe
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\FirstFloor.ModernUI.dll
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\FirstFloor.ModernUI.xml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csprojResolveAssemblyReference.cache
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\MainWindow.baml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\App.baml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\MainWindow.g.cs
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\App.g.cs
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0_MarkupCompile.cache
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.g.resources

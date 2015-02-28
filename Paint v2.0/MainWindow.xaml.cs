@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows;
 using System;
 
@@ -10,16 +9,19 @@ namespace Paint_v2._0
 {
     public partial class Paint : ModernWindow
     {
-        private Point curPoint = new Point();
-        private Item currItem = Item.Pencil;
+        private Point curPoint;
+        private Item currItem;
         private Draw drawShape;
         private Brush brushColor;
+        private int pos = 0;
 
         public Paint()
         {
             InitializeComponent();
 
-            brushColor = showDrawingColor.Background;
+            curPoint = new Point();
+            currItem = Item.Pencil;
+            brushColor = drawingColorBox.Background;
         }
 
         private enum Item
@@ -31,37 +33,93 @@ namespace Paint_v2._0
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            
+            var result = MessageBox.Show("Do you want to save changes?", "Paint",
+                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
+            {
+                if (result == MessageBoxResult.Yes)
+                    IO.save(paintSurface);
+                EditOptions.clearUndoAndRedoLists();
+                EditOptions.clearCanvas(paintSurface);
+                this.Title = "Paint";
+            }
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show("Do you want to save changes?", "Paint",
+                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
+            {
+                if (result == MessageBoxResult.Yes)
+                    IO.open(paintSurface);
+                EditOptions.clearUndoAndRedoLists();
+                EditOptions.clearCanvas(paintSurface);
+                this.Title = "Paint";
+            }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Title = IO.save(paintSurface);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show("Do you want to save changes?", "Paint",
+                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                IO.save(paintSurface);
+
+                this.Close();
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                this.Close();
+            }
+            else if (result == MessageBoxResult.Cancel)
+            {
+
+            }
+            else
+                MessageBox.Show("Unexpected error. Try agine");
         }
 
         //Edit Optoins
 
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
+            var shape = EditOptions.undo();
+            if (shape != null)
+                paintSurface.Children.Remove(shape);
+            /*paintSurface.Background = Brushes.White;
+            paintSurface.Children.Clear();
 
+            ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
+            tmp = EditOptions.undo(tmp);
+
+            paintSurface.Background = tmp;*/
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
+            var shape = EditOptions.redo();
+            if (shape != null)
+                paintSurface.Children.Add(shape);
+            /*paintSurface.Background = Brushes.White;
+            paintSurface.Children.Clear();
 
+            ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
+            tmp = EditOptions.redo(tmp);
+
+            paintSurface.Background = tmp;*/
         }
 
-        //Image Options
+        //Image Transformations
 
         private void VerticalFlip_Click(object sender, RoutedEventArgs e)
         {
@@ -75,17 +133,26 @@ namespace Paint_v2._0
 
         private void RightRotate_Click(object sender, RoutedEventArgs e)
         {
+            pos -= 90;
+            RotateTransform rt = new RotateTransform(pos);
 
+            paintSurface.RenderTransform = rt;
         }
 
         private void LeftRotate_Click(object sender, RoutedEventArgs e)
         {
+            pos += 90;
+            RotateTransform rt = new RotateTransform(pos);
 
+            paintSurface.RenderTransform = rt;
         }
 
         private void Rotate180_Click(object sender, RoutedEventArgs e)
         {
+            pos += 180;
+            RotateTransform rt = new RotateTransform(pos);
 
+            paintSurface.RenderTransform = rt;
         }
 
         //Choose Item
@@ -148,10 +215,10 @@ namespace Paint_v2._0
                 drawShape = new DrawPolyline(Brushes.White, 5);
 
             else if (currItem == Item.Fill)
-                drawShape = new DrawEllipse(brushColor, 2); //change to Fill
+                paintSurface.Background = ImageTools.fill(paintSurface, curPoint, brushColor);
 
             else if (currItem == Item.ColorPicker)
-                drawShape = new DrawRectangle(brushColor, 2); // change to colorPicker
+                brushColor = drawingColorBox.Background = ImageTools.pickColor(paintSurface, curPoint);
 
             if (drawShape != null)
                 drawShape.getStartCords(curPoint.X, curPoint.Y);
@@ -180,7 +247,11 @@ namespace Paint_v2._0
                  paintSurface.Children.Remove(drawShape.returnShape());
                  drawShape.getEndCords(curPoint.X, curPoint.Y);
                  paintSurface.Children.Add(drawShape.returnShape());
+
+                 EditOptions.saveShape(drawShape.returnShape());
              }
+             //ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
+             //EditOptions.saveSurface(tmp);
         }
 
         private void Mouse_Leave(object sender, MouseEventArgs e)

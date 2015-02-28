@@ -2,7 +2,7 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-                  Title="Paint" 
+                  Title="Untitled - Paint" 
                   Style="{StaticResource ResourceKey=BlankWindow}" 
                   Width="860" 
                   Height="640">
@@ -119,7 +119,7 @@
                 </Image.ToolTip>
             </Image>
             <Canvas
-                Name="showDrawingColor"
+                Name="drawingColorBox"
                 Height="40" 
                 Width="40"
                 Margin="5,5,0,2" 
@@ -343,20 +343,20 @@
                 DockPanel.Dock="Top"
 			    Height="auto"
 			    Width="auto"
+                Margin="5" 
 			    VerticalScrollBarVisibility="Auto"
 			    HorizontalScrollBarVisibility="Auto">
                 <Canvas
 				    Name="paintSurface"
 				    VerticalAlignment="Top"
-				    HorizontalAlignment="Left"
 				    MouseLeftButtonDown="MouseDown_Click"
 				    MouseUp="MouseUp_Click"
 				    MouseMove="Mouse_Move"
                     MouseLeave="Mouse_Leave"
 				    Height="350"
 				    Width="450"
-                    Margin="5" 
-				    Background="#FFFFFFFF">
+				    Background="#FFFFFFFF" 
+                    HorizontalAlignment="Left">
                     <Canvas.Effect>
                         <DropShadowEffect 
                             BlurRadius="15"
