@@ -24,3 +24,16 @@ D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\MainWindow.g.cs
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\App.g.cs
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0_MarkupCompile.cache
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.g.resources
+D:\git\Paint v2.0\obj\Release\Paint v2.0.exe
+D:\git\Paint v2.0\obj\Release\Paint v2.0.pdb
+D:\git\Paint v2.0\obj\Release\Paint v2.0.csprojResolveAssemblyReference.cache
+D:\git\Paint v2.0\obj\Release\MainWindow.baml
+D:\git\Paint v2.0\obj\Release\App.baml
+D:\git\Paint v2.0\obj\Release\MainWindow.g.cs
+D:\git\Paint v2.0\obj\Release\App.g.cs
+D:\git\Paint v2.0\obj\Release\Paint v2.0_MarkupCompile.cache
+D:\git\Paint v2.0\obj\Release\Paint v2.0.g.resources
+D:\git\Paint v2.0\bin\Release\Paint v2.0.exe
+D:\git\Paint v2.0\bin\Release\Paint v2.0.pdb
+D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.dll
+D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.xml

@@ -62,7 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ChangeColor.cs" />
+    <Compile Include="TranslateImage" />
     <Compile Include="EditOptions.cs" />
     <Compile Include="ImageTransformations.cs" />
     <Compile Include="IO.cs" />

@@ -13,7 +13,6 @@ namespace Paint_v2._0
         private Item currItem;
         private Draw drawShape;
         private Brush brushColor;
-        private int pos = 0;
 
         public Paint()
         {
@@ -96,13 +95,6 @@ namespace Paint_v2._0
             var shape = EditOptions.undo();
             if (shape != null)
                 paintSurface.Children.Remove(shape);
-            /*paintSurface.Background = Brushes.White;
-            paintSurface.Children.Clear();
-
-            ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
-            tmp = EditOptions.undo(tmp);
-
-            paintSurface.Background = tmp;*/
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
@@ -110,49 +102,54 @@ namespace Paint_v2._0
             var shape = EditOptions.redo();
             if (shape != null)
                 paintSurface.Children.Add(shape);
-            /*paintSurface.Background = Brushes.White;
-            paintSurface.Children.Clear();
-
-            ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
-            tmp = EditOptions.redo(tmp);
-
-            paintSurface.Background = tmp;*/
         }
 
         //Image Transformations
 
         private void VerticalFlip_Click(object sender, RoutedEventArgs e)
         {
-
+			paintSurface.Background = ImageTransformations.flipVertical(paintSurface);
+            paintSurface.Children.Clear();
         }
 
         private void HorizontalFlip_Click(object sender, RoutedEventArgs e)
         {
-
+			paintSurface.Background = ImageTransformations.flipHorizontal(paintSurface);
+            paintSurface.Children.Clear();
         }
 
         private void RightRotate_Click(object sender, RoutedEventArgs e)
         {
-            pos -= 90;
-            RotateTransform rt = new RotateTransform(pos);
+            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 90);
+            paintSurface.Children.Clear();
 
-            paintSurface.RenderTransform = rt;
+            var tmp = paintSurface.Width;
+            paintSurface.Width = paintSurface.Height;
+            paintSurface.Height = tmp;
+
+            CanvasSize.Content = paintSurface.Width.ToString() + " x " + paintSurface.Height.ToString();
         }
 
         private void LeftRotate_Click(object sender, RoutedEventArgs e)
         {
-            pos += 90;
-            RotateTransform rt = new RotateTransform(pos);
+            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 270);
+            paintSurface.Children.Clear();
 
-            paintSurface.RenderTransform = rt;
+            var tmp = paintSurface.Width;
+            paintSurface.Width = paintSurface.Height;
+            paintSurface.Height = tmp;
+
+            CanvasSize.Content = paintSurface.Width.ToString() + " x " + paintSurface.Height.ToString();
         }
 
         private void Rotate180_Click(object sender, RoutedEventArgs e)
         {
-            pos += 180;
-            RotateTransform rt = new RotateTransform(pos);
+            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 180);
+            paintSurface.Children.Clear();
 
-            paintSurface.RenderTransform = rt;
+            var tmp = paintSurface.Width;
+            paintSurface.Width = paintSurface.Height;
+            paintSurface.Height = tmp;
         }
 
         //Choose Item
@@ -250,8 +247,6 @@ namespace Paint_v2._0
 
                  EditOptions.saveShape(drawShape.returnShape());
              }
-             //ImageBrush tmp = ImageTools.createImageBrushFromVisual(paintSurface);
-             //EditOptions.saveSurface(tmp);
         }
 
         private void Mouse_Leave(object sender, MouseEventArgs e)
