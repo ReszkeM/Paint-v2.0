@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
@@ -12,43 +11,39 @@ namespace Paint_v2._0
         private static Stack<Shape> toUndo = new Stack<Shape>();
         private static Stack<Shape> toRedo = new Stack<Shape>();
 
-        public static void saveShape(Shape shape)
+        public static void SaveShape(Shape shape)
         {
             toUndo.Push(shape);
         }
 
-        public static void clearUndoAndRedoLists()
+        public static void ClearUndoAndRedoLists()
         {
             toUndo.Clear();
             toRedo.Clear();
         }
 
-        public static void clearCanvas(Canvas paintSurface)
+        public static void ClearCanvas(Canvas paintSurface)
         {
             paintSurface.Background = Brushes.White;
             paintSurface.Children.Clear();
         }
 
-        public static Shape undo()
+        public static Shape Undo()
         {
-            if (toUndo.Count > 0)
-            {
-                Shape tmp = toUndo.Pop();
-                toRedo.Push(tmp);
-                return tmp;
-            }
-            return null;
+            if (toUndo.Count <= 0) return null;
+
+            var tmp = toUndo.Pop();
+            toRedo.Push(tmp);
+            return tmp;
         }
 
-        public static Shape redo()
+        public static Shape Redo()
         {
-            if (toRedo.Count > 0)
-            {
-                Shape tmp = toRedo.Pop();
-                toUndo.Push(tmp);
-                return tmp;
-            }
-            return null;
+            if (toRedo.Count <= 0) return null;
+
+            var tmp = toRedo.Pop();
+            toUndo.Push(tmp);
+            return tmp;
         }
     }
 }

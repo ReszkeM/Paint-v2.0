@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Shapes;
+﻿using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Controls;
 
@@ -16,9 +15,9 @@ namespace Paint_v2._0
             myRectangle.StrokeThickness = brushThick;
         }
 
-        protected override void setCordsToFigure()
+        protected override void SetCordsToFigure()
         {
-            checkCords();
+            CheckCords();
 
             myRectangle.Width = tmpX2 - tmpX1;
             myRectangle.Height = tmpY2 - tmpY1;
@@ -27,7 +26,7 @@ namespace Paint_v2._0
             Canvas.SetTop(myRectangle, tmpY1);
         }
 
-        public override Shape returnShape()
+        public override Shape ReturnShape()
         {
             return myRectangle;
         }

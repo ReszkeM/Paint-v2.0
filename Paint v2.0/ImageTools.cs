@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Windows;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Windows.Media.Imaging;
-using System.Windows.Interop;
 using System.Drawing;
 using Brush = System.Windows.Media.Brush;
 using Color = System.Drawing.Color;
@@ -14,24 +12,36 @@ namespace Paint_v2._0
 {
     public static class ImageTools
     {
-        public static ImageBrush fill(Canvas paintSurface, System.Windows.Point curPoint, Brush brushColor)
+        public static ImageBrush Fill(Canvas paintSurface, System.Windows.Point curPoint, Brush brushColor)
         {
-            Bitmap bmp = TranslateImage.createBitmapFromVisual(paintSurface);
+            var bmp = TranslateImage.CreateBitmapFromVisual(paintSurface);
 
-            Color targetColor = bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
-            Color repColor = ColorTranslator.FromHtml(brushColor.ToString());
+            var targetColor = bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
+            var repColor = ColorTranslator.FromHtml(brushColor.ToString());
 
-            Point p = new Point(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
+            var p = new Point(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
 
             return FloodFill(bmp, p, targetColor, repColor);
         }
 
-        public static SolidColorBrush pickColor(Canvas paintSurface, System.Windows.Point curPoint)
+        public static SolidColorBrush PickColor(Canvas paintSurface, System.Windows.Point curPoint)
         {
-            Bitmap bmp = TranslateImage.createBitmapFromVisual(paintSurface);
+            var bmp = TranslateImage.CreateBitmapFromVisual(paintSurface);
             bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
 
-            Color color = bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
+            var color = bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
+
+            return new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
+        }
+
+        public static SolidColorBrush PickColor(ImageSource colorWheel, System.Windows.Point curPoint)
+        {
+            var bmpSo = TranslateImage.CreateBitmapSourceFromImageSource(colorWheel);
+            var bmp = TranslateImage.CreateBitmapFromBitmapSource(bmpSo);
+
+            bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
+
+            var color = bmp.GetPixel(Convert.ToInt32(curPoint.X), Convert.ToInt32(curPoint.Y));
 
             return new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
         }
@@ -43,16 +53,16 @@ namespace Paint_v2._0
 
         private static ImageBrush FloodFill(Bitmap bmp, Point p, Color targetColor, Color repColor)
         {
-            Queue<Point> q = new Queue<Point>();
+            var q = new Queue<Point>();
             q.Enqueue(p);
 
             while (q.Count > 0)
             {
-                Point n = q.Dequeue();
+                var n = q.Dequeue();
                 if (!CompareColors(bmp.GetPixel(n.X, n.Y), targetColor))
                     continue;
                 Point w = n,
-                e = new System.Drawing.Point(n.X + 1, n.Y);
+                e = new Point(n.X + 1, n.Y);
 
                 while ((w.X > 0) && CompareColors(bmp.GetPixel(w.X, w.Y), targetColor))
                 {
@@ -73,7 +83,7 @@ namespace Paint_v2._0
                     e.X++;
                 }
             }
-            BitmapSource bmpSo = TranslateImage.createBitmapSourceFromBitmap(bmp);
+            var bmpSo = TranslateImage.CreateBitmapSourceFromBitmap(bmp);
             return new ImageBrush(bmpSo);
         }
     }

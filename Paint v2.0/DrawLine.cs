@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Shapes;
+﻿using System.Windows.Shapes;
 using System.Windows.Media;
 
 namespace Paint_v2._0
@@ -15,7 +14,7 @@ namespace Paint_v2._0
             myLine.StrokeThickness = brushThick;
         }
 
-        protected override void setCordsToFigure()
+        protected override void SetCordsToFigure()
         {
             myLine.X1 = x1;
             myLine.Y1 = y1;
@@ -24,7 +23,7 @@ namespace Paint_v2._0
             myLine.Y2 = y2;
         }
 
-        public override Shape returnShape()
+        public override Shape ReturnShape()
         {
             return myLine;
         }

@@ -10,60 +10,50 @@ namespace Paint_v2._0
 {
     public static class IO
     {
-        public static string open(Canvas paintSurface)
+        public static string Open(Canvas paintSurface)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             ofd.Filter = "BMP|*.bmp";
 
-            Nullable<bool> result = ofd.ShowDialog();
-            if (result == true)
-            {
-                ImageBrush brush = new ImageBrush();
-                brush.ImageSource = new BitmapImage(new Uri(ofd.FileName.ToString()));
+            var result = ofd.ShowDialog();
+            if (result != true) return "Untitled - Paint";
 
-                paintSurface.Width = brush.ImageSource.Width;
-                paintSurface.Height = brush.ImageSource.Height;
+            var brush = new ImageBrush();
+            brush.ImageSource = new BitmapImage(new Uri(ofd.FileName.ToString()));
 
-                paintSurface.Background = brush;
+            paintSurface.Width = brush.ImageSource.Width;
+            paintSurface.Height = brush.ImageSource.Height;
 
-                return ofd.SafeFileName.ToString() + " - Paint";
-            }
-            return "Untitled - Paint";
+            paintSurface.Background = brush;
+
+            return ofd.SafeFileName + " - Paint";
         }
 
-        public static string save(Canvas paintSurface)
+        public static string Save(Canvas paintSurface)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog();
             sfd.Filter = "BMP|*.bmp";
 
-            Nullable<bool> result = sfd.ShowDialog();
+            var result = sfd.ShowDialog();
 
-            if (result == true)
-            {
-                int Height = (int)paintSurface.Height;
-                int Width = (int)paintSurface.Width;
-                string file_name = sfd.FileName.ToString();
+            if (result != true) return "Untitled - Paint";
 
-                RenderTargetBitmap bmp = new RenderTargetBitmap(Width, Height, 96, 96, PixelFormats.Pbgra32);
-                bmp.Render(paintSurface);
+            var height = (int)paintSurface.Height;
+            var width = (int)paintSurface.Width;
+            var fileName = sfd.FileName;
 
-                BitmapEncoder bmpEncoder = new BmpBitmapEncoder();
-                bmpEncoder.Frames.Add(BitmapFrame.Create(bmp));
+            var bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(paintSurface);
 
-                using (Stream fs = File.Create(file_name))
-                    bmpEncoder.Save(fs);
+            BitmapEncoder bmpEncoder = new BmpBitmapEncoder();
+            bmpEncoder.Frames.Add(BitmapFrame.Create(bmp));
 
-                MessageBox.Show("Save successfully.");
+            using (Stream fs = File.Create(fileName))
+                bmpEncoder.Save(fs);
 
-                return sfd.FileName.ToString() + " - Paint";
-            }
+            MessageBox.Show("Save successfully.");
 
-            return "Untitled - Paint";
-        }
-
-        private static void openFileDialog()
-        {
-
+            return sfd.FileName + " - Paint";
         }
     }
 }

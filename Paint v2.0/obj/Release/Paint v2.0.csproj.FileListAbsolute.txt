@@ -17,7 +17,6 @@ D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\Paint v2.0.exe
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\Paint v2.0.pdb
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\FirstFloor.ModernUI.dll
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Release\FirstFloor.ModernUI.xml
-D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csprojResolveAssemblyReference.cache
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\MainWindow.baml
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\App.baml
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\MainWindow.g.cs
@@ -37,3 +36,6 @@ D:\git\Paint v2.0\bin\Release\Paint v2.0.exe
 D:\git\Paint v2.0\bin\Release\Paint v2.0.pdb
 D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.dll
 D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.xml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint_v2._0.Properties.Resources.resources
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csproj.GenerateResource.Cache
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csprojResolveAssemblyReference.cache

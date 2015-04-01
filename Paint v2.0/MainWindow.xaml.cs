@@ -1,6 +1,6 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
+﻿using System.Diagnostics;
+using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System;
@@ -9,23 +9,18 @@ namespace Paint_v2._0
 {
     public partial class Paint : ModernWindow
     {
-        private Point curPoint;
-        private Item currItem;
-        private Draw drawShape;
-        private Brush brushColor;
+        private Point _curPoint;
+        private Items _currItems;
+        private Draw _drawShape;
+        private Brush _brushColor;
 
         public Paint()
         {
             InitializeComponent();
 
-            curPoint = new Point();
-            currItem = Item.Pencil;
-            brushColor = drawingColorBox.Background;
-        }
-
-        private enum Item
-        {
-            Rectangle, Ellipse, Line, Pencil, Eraser, Fill, ColorPicker
+            _curPoint = new Point();
+            _currItems = Items.Pencil;
+            _brushColor = drawingColorBox.Background;
         }
 
         //File Options
@@ -38,10 +33,16 @@ namespace Paint_v2._0
             if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
                 if (result == MessageBoxResult.Yes)
-                    IO.save(paintSurface);
-                EditOptions.clearUndoAndRedoLists();
-                EditOptions.clearCanvas(paintSurface);
+                    IO.Save(paintSurface);
+
+                EditOptions.ClearUndoAndRedoLists();
+                EditOptions.ClearCanvas(paintSurface);
+
                 this.Title = "Paint";
+
+                paintSurface.Width = 450;
+                paintSurface.Height = 350;
+                CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
             }
         }
 
@@ -53,16 +54,23 @@ namespace Paint_v2._0
             if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
                 if (result == MessageBoxResult.Yes)
-                    IO.open(paintSurface);
-                EditOptions.clearUndoAndRedoLists();
-                EditOptions.clearCanvas(paintSurface);
-                this.Title = "Paint";
+                    IO.Save(paintSurface);
+
+                EditOptions.ClearUndoAndRedoLists();
+                EditOptions.ClearCanvas(paintSurface);
+                IO.Open(paintSurface);
+
+                Title = "Paint";
+
+                var width = Convert.ToInt32(paintSurface.Width);
+                var height = Convert.ToInt32(paintSurface.Height);
+                CanvasSize.Content = width + " x " + height;
             }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            this.Title = IO.save(paintSurface);
+            Title = IO.Save(paintSurface);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -70,36 +78,37 @@ namespace Paint_v2._0
             var result = MessageBox.Show("Do you want to save changes?", "Paint",
                          MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
-                IO.save(paintSurface);
+                if (result == MessageBoxResult.Yes)
+                    IO.Save(paintSurface);
+                Application.Current.Shutdown();
+            }
+        }
 
-                this.Close();
-            }
-            else if (result == MessageBoxResult.No)
-            {
-                this.Close();
-            }
-            else if (result == MessageBoxResult.Cancel)
-            {
+        private void Close_Click(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to save changes?", "Paint",
+                         MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes )
+            {
+                IO.Save(paintSurface);
             }
-            else
-                MessageBox.Show("Unexpected error. Try agine");
         }
 
         //Edit Optoins
 
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
-            var shape = EditOptions.undo();
+            var shape = EditOptions.Undo();
             if (shape != null)
                 paintSurface.Children.Remove(shape);
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
-            var shape = EditOptions.redo();
+            var shape = EditOptions.Redo();
             if (shape != null)
                 paintSurface.Children.Add(shape);
         }
@@ -108,13 +117,13 @@ namespace Paint_v2._0
 
         private void VerticalFlip_Click(object sender, RoutedEventArgs e)
         {
-			paintSurface.Background = ImageTransformations.flipVertical(paintSurface);
+			paintSurface.Background = ImageTransformations.FlipVertical(paintSurface);
             paintSurface.Children.Clear();
         }
 
         private void HorizontalFlip_Click(object sender, RoutedEventArgs e)
         {
-			paintSurface.Background = ImageTransformations.flipHorizontal(paintSurface);
+			paintSurface.Background = ImageTransformations.FlipHorizontal(paintSurface);
             paintSurface.Children.Clear();
         }
 
@@ -127,7 +136,7 @@ namespace Paint_v2._0
             paintSurface.Width = paintSurface.Height;
             paintSurface.Height = tmp;
 
-            CanvasSize.Content = paintSurface.Width.ToString() + " x " + paintSurface.Height.ToString();
+            CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
         }
 
         private void LeftRotate_Click(object sender, RoutedEventArgs e)
@@ -139,119 +148,123 @@ namespace Paint_v2._0
             paintSurface.Width = paintSurface.Height;
             paintSurface.Height = tmp;
 
-            CanvasSize.Content = paintSurface.Width.ToString() + " x " + paintSurface.Height.ToString();
+            CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
         }
 
         private void Rotate180_Click(object sender, RoutedEventArgs e)
         {
             paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 180);
             paintSurface.Children.Clear();
-
-            var tmp = paintSurface.Width;
-            paintSurface.Width = paintSurface.Height;
-            paintSurface.Height = tmp;
         }
 
-        //Choose Item
+        //Choose Items
 
         private void Pencil_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Pencil;
+            _currItems = Items.Pencil;
         }
 
         private void Eraser_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Eraser;
+            _currItems = Items.Eraser;
         }
 
         private void Fill_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Fill;
+            _currItems = Items.Fill;
         }
 
         private void ColorPicker_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.ColorPicker;
+            _currItems = Items.ColorPicker;
         }
 
         private void Rectangle_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Rectangle;
+            _currItems = Items.Rectangle;
         }
 
         private void Ellipse_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Ellipse;
+            _currItems = Items.Ellipse;
         }
 
         private void Line_Click(object sender, RoutedEventArgs e)
         {
-            currItem = Item.Line;
+            _currItems = Items.Line;
         }
 
         //Actions On Canvas
 
         private void MouseDown_Click(object sender, MouseButtonEventArgs e)
         {
-            curPoint = e.GetPosition(paintSurface);
-            drawShape = null;
+            _curPoint = e.GetPosition(paintSurface);
+            _drawShape = null;
 
-            if (currItem == Item.Line)
-                drawShape = new DrawLine(brushColor, 2);
+            switch (_currItems)
+            {
+                case Items.Line:
+                    _drawShape = new DrawLine(_brushColor, 2);
+                    break;
+                case Items.Rectangle:
+                    _drawShape = new DrawRectangle(_brushColor, 2);
+                    break;
+                case Items.Ellipse:
+                    _drawShape = new DrawEllipse(_brushColor, 2);
+                    break;
+                case Items.Pencil:
+                    _drawShape = new DrawPolyline(_brushColor, 2);
+                    break;
+                case Items.Eraser:
+                    _drawShape = new DrawPolyline(Brushes.White, 5);
+                    break;
+                case Items.Fill:
+                    paintSurface.Background = ImageTools.Fill(paintSurface, _curPoint, _brushColor);
+                    break;
+                case Items.ColorPicker:
+                    _brushColor = drawingColorBox.Background = ImageTools.PickColor(paintSurface, _curPoint);
+                    break;
+            }
 
-            else if (currItem == Item.Rectangle)
-                drawShape = new DrawRectangle(brushColor, 2);
-
-            else if (currItem == Item.Ellipse)
-                drawShape = new DrawEllipse(brushColor, 2);
-
-            else if (currItem == Item.Pencil)
-                drawShape = new DrawPolyline(brushColor, 2);
-
-            else if (currItem == Item.Eraser)
-                drawShape = new DrawPolyline(Brushes.White, 5);
-
-            else if (currItem == Item.Fill)
-                paintSurface.Background = ImageTools.fill(paintSurface, curPoint, brushColor);
-
-            else if (currItem == Item.ColorPicker)
-                brushColor = drawingColorBox.Background = ImageTools.pickColor(paintSurface, curPoint);
-
-            if (drawShape != null)
-                drawShape.getStartCords(curPoint.X, curPoint.Y);
+            if (_drawShape != null)
+                _drawShape.GetStartCords(_curPoint.X, _curPoint.Y);
         }
 
         private void Mouse_Move(object sender, MouseEventArgs e)
         {
-            curPoint = e.GetPosition(paintSurface);
-            Position.Content = curPoint.X + ", " + curPoint.Y + "px";
+            _curPoint = e.GetPosition(paintSurface);
+            Position.Content = _curPoint.X + ", " + _curPoint.Y + "px";
 
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && _drawShape != null)
             {
-                if (drawShape != null)
-                {
-                    paintSurface.Children.Remove(drawShape.returnShape());
-                    drawShape.getEndCords(curPoint.X, curPoint.Y);
-                    paintSurface.Children.Add(drawShape.returnShape());
-                }
+                paintSurface.Children.Remove(_drawShape.ReturnShape());
+                _drawShape.GetEndCords(_curPoint.X, _curPoint.Y);
+                paintSurface.Children.Add(_drawShape.ReturnShape());
             }
         }
 
         private void MouseUp_Click(object sender, MouseButtonEventArgs e)
         {
-             if (drawShape != null)
+             if (_drawShape != null)
              {
-                 paintSurface.Children.Remove(drawShape.returnShape());
-                 drawShape.getEndCords(curPoint.X, curPoint.Y);
-                 paintSurface.Children.Add(drawShape.returnShape());
+                 paintSurface.Children.Remove(_drawShape.ReturnShape());
+                 _drawShape.GetEndCords(_curPoint.X, _curPoint.Y);
 
-                 EditOptions.saveShape(drawShape.returnShape());
+                 var finalyShape = _drawShape.ReturnShape();
+                 paintSurface.Children.Add(finalyShape);
+                 EditOptions.SaveShape(finalyShape);
              }
         }
 
         private void Mouse_Leave(object sender, MouseEventArgs e)
         {
             Position.Content = "";
+        }
+
+        private void ChangeColor_Click(object sender, MouseButtonEventArgs e)
+        {
+            _curPoint = e.GetPosition(ColorWheel);
+            _brushColor = drawingColorBox.Background = ImageTools.PickColor(ColorWheel.Source, _curPoint);
         }
     }
 }

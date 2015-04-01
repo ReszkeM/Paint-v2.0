@@ -5,7 +5,8 @@
                   Title="Untitled - Paint" 
                   Style="{StaticResource ResourceKey=BlankWindow}" 
                   Width="860" 
-                  Height="640">
+                  Height="640" 
+                  Closing="Close_Click">
     <DockPanel
         Background="#FFAEA3A3">
         <Menu 
@@ -104,11 +105,15 @@
                     Direction="90" ShadowDepth="3" Opacity="0.8"/>
             </DockPanel.Effect>
             <Image 
+                Name="ColorWheel"
                 Height="60" 
                 Width="60"
                 Margin="5,5,0,2" 
                 VerticalAlignment="Top" 
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Left" 
+                Source="Resources/ColorWhell_60x60.jpg"
+                Stretch="Fill" 
+                MouseDown="ChangeColor_Click">
                 <Image.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -167,7 +172,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Pencil_Click"
-                Margin="0,20,0,5">
+                Margin="0,20,0,5" 
+                Padding="2"
+                >
+                <Image Source="Resources/Pencil.png"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -184,7 +193,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Eraser_Click"
-                Margin="2,20,0,5">
+                Margin="2,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/Eraser.png"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -201,7 +214,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Fill_Click"
-                Margin="2,20,0,5">
+                Margin="2,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/Fill.jpg"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -218,7 +235,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="ColorPicker_Click"
-                Margin="2,20,0,5">
+                Margin="2,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/ColorPicker.png"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -252,7 +273,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Rectangle_Click"
-                Margin="0,20,0,5">
+                Margin="0,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/Rectangle.png"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -269,7 +294,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Ellipse_Click"
-                Margin="2,20,0,5">
+                Margin="2,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/Ellipse.jpg"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>
@@ -286,7 +315,11 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Click="Line_Click"
-                Margin="2,20,0,5" >
+                Margin="2,20,0,5"
+                Padding="2"
+                >
+                <Image Source="Resources/Line.png"/>
+
                 <Button.ToolTip>
                     <ToolTip>
                         <StackPanel>

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
-using System.Windows.Controls;
 
 namespace Paint_v2._0
 {
@@ -21,14 +19,14 @@ namespace Paint_v2._0
             myPointCollection = new PointCollection();
         }
 
-        protected override void setCordsToFigure()
+        protected override void SetCordsToFigure()
         {
-            Point Point = new Point(x2, y2);
-            myPointCollection.Add(Point);
+            var point = new Point(x2, y2);
+            myPointCollection.Add(point);
             myPolyline.Points = myPointCollection;
         }
 
-        public override Shape returnShape()
+        public override Shape ReturnShape()
         {
             return myPolyline;
         }

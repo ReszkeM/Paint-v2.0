@@ -9,25 +9,25 @@ namespace Paint_v2._0
         protected double tmpX1, tmpX2, tmpY1, tmpY2;
         //protected Shape _shape;
 
-        public void getStartCords(double X, double Y)
+        public void GetStartCords(double X, double Y)
         {
             x1 = X;
             y1 = Y;
         }
 
-        public void getEndCords(double X, double Y)
+        public void GetEndCords(double X, double Y)
         {
             x2 = X;
             y2 = Y;
 
-            setCordsToFigure();
+            SetCordsToFigure();
         }
 
-        protected abstract void setCordsToFigure();
+        protected abstract void SetCordsToFigure();
 
-        public abstract Shape returnShape();
+        public abstract Shape ReturnShape();
 
-        protected void checkCords()
+        protected void CheckCords()
         {
             if (x2 <= x1)
             {
