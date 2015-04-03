@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Controls;
 
 
@@ -8,12 +7,12 @@ namespace Paint_v2._0
 {
     public static class EditOptions
     {
-        private static Stack<Shape> toUndo = new Stack<Shape>();
-        private static Stack<Shape> toRedo = new Stack<Shape>();
+        private static Stack<Image> toUndo = new Stack<Image>();
+        private static Stack<Image> toRedo = new Stack<Image>();
 
-        public static void SaveShape(Shape shape)
+        public static void SaveCanvasImage(Image canvasImage)
         {
-            toUndo.Push(shape);
+            toUndo.Push(canvasImage);
         }
 
         public static void ClearUndoAndRedoLists()
@@ -28,7 +27,7 @@ namespace Paint_v2._0
             paintSurface.Children.Clear();
         }
 
-        public static Shape Undo()
+        public static Image Undo()
         {
             if (toUndo.Count <= 0) return null;
 
@@ -37,7 +36,7 @@ namespace Paint_v2._0
             return tmp;
         }
 
-        public static Shape Redo()
+        public static Image Redo()
         {
             if (toRedo.Count <= 0) return null;
 

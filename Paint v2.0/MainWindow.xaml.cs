@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
 using System;
@@ -8,9 +9,9 @@ namespace Paint_v2._0
     public partial class Paint
     {
         private bool _isPressed;
-
-        private Point _curPoint;
+        private bool _isRotated;
         private Items _currItems;
+        private Point _curPoint;
         private Draw _drawShape;
         private Brush _brushColor;
 
@@ -21,6 +22,7 @@ namespace Paint_v2._0
             _curPoint = new Point();
             _currItems = Items.Pencil;
             _brushColor = drawingColorBox.Background;
+            _isRotated = false;
         }
 
         //File Options
@@ -117,6 +119,16 @@ namespace Paint_v2._0
             var shape = EditOptions.Undo();
             if (shape != null)
                 PaintSurface.Children.Remove(shape);
+
+            if (_isRotated)
+            {
+                var tmp = PaintSurface.Width;
+                PaintSurface.Width = PaintSurface.Height;
+                PaintSurface.Height = tmp;
+                _isRotated = false;
+            }
+
+
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
@@ -124,27 +136,31 @@ namespace Paint_v2._0
             var shape = EditOptions.Redo();
             if (shape != null)
                 PaintSurface.Children.Add(shape);
+
+            if (_isRotated)
+            {
+                var tmp = PaintSurface.Width;
+                PaintSurface.Width = PaintSurface.Height;
+                PaintSurface.Height = tmp;
+                _isRotated = false;
+            }
         }
 
         //Image Transformations
 
         private void VerticalFlip_Click(object sender, RoutedEventArgs e)
         {
-            ImageTransformations.FlipVertical(PaintSurface);
+            EditOptions.SaveCanvasImage(ImageTransformations.FlipVertical(PaintSurface));
         }
 
         private void HorizontalFlip_Click(object sender, RoutedEventArgs e)
         {
-			ImageTransformations.FlipHorizontal(PaintSurface);
+            EditOptions.SaveCanvasImage(ImageTransformations.FlipVertical(PaintSurface));
         }
 
         private void RightRotate_Click(object sender, RoutedEventArgs e)
         {
-            ImageTransformations.RotateImage(PaintSurface, 90);
-
-            var tmp = PaintSurface.Width;
-            PaintSurface.Width = PaintSurface.Height;
-            PaintSurface.Height = tmp;
+            EditOptions.SaveCanvasImage(ImageTransformations.RotateImage(PaintSurface, 90));
 
             CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
 
@@ -154,15 +170,12 @@ namespace Paint_v2._0
                 Y = 0
             };
             CanvasResizeButton.RenderTransform = transform;
+            _isRotated = true;
         }
 
         private void LeftRotate_Click(object sender, RoutedEventArgs e)
         {
-            ImageTransformations.RotateImage(PaintSurface, 270);
-
-            var tmp = PaintSurface.Width;
-            PaintSurface.Width = PaintSurface.Height;
-            PaintSurface.Height = tmp;
+           EditOptions.SaveCanvasImage(ImageTransformations.RotateImage(PaintSurface, 270));
 
             CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
 
@@ -172,11 +185,12 @@ namespace Paint_v2._0
                 Y = 0
             };
             CanvasResizeButton.RenderTransform = transform;
+            _isRotated = true;
         }
 
         private void Rotate180_Click(object sender, RoutedEventArgs e)
         {
-            ImageTransformations.RotateImage(PaintSurface, 180);
+            EditOptions.SaveCanvasImage(ImageTransformations.RotateImage(PaintSurface, 180));
         }
 
         //Choose Items
@@ -280,13 +294,25 @@ namespace Paint_v2._0
 
                  var finalyShape = _drawShape.ReturnShape();
                  PaintSurface.Children.Add(finalyShape);
-                 EditOptions.SaveShape(finalyShape);
+
+                 var bmp = TranslateImage.CreateBitmapFromVisual(PaintSurface);
+
+                 var bodyImage = new Image
+                 {
+                     Source = TranslateImage.CreateBitmapSourceFromBitmap(bmp)
+                 };
+
+                 PaintSurface.Children.Remove(finalyShape);
+                 PaintSurface.Children.Add(bodyImage);
+                 Canvas.SetTop(bodyImage, 0);
+                 Canvas.SetLeft(bodyImage, 0);
+
+                 EditOptions.SaveCanvasImage(bodyImage);
              }
         }
 
         private void CanvasMouse_Leave(object sender, MouseEventArgs e)
         {
-            //_drawShape = null;
             Position.Content = "";
         }
 

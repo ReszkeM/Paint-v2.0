@@ -18,6 +18,7 @@ namespace Paint_v2._0
                 Source = TranslateImage.CreateBitmapSourceFromBitmap(bmp)
             };
 
+            paintSurface.Children.Clear();
             paintSurface.Children.Add(bodyImage);
             Canvas.SetTop(bodyImage, 0);
             Canvas.SetLeft(bodyImage, 0);
@@ -68,6 +69,10 @@ namespace Paint_v2._0
             paintSurface.Children.Add(bodyImage);
             Canvas.SetTop(bodyImage, 0);
             Canvas.SetLeft(bodyImage, 0);
+
+            var tmp = paintSurface.Width;
+            paintSurface.Width = paintSurface.Height;
+            paintSurface.Height = tmp;
 
             return bodyImage;
         }
