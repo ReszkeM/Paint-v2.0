@@ -18,13 +18,17 @@ namespace Paint_v2._0
             var result = ofd.ShowDialog();
             if (result != true) return "Untitled - Paint";
 
-            var brush = new ImageBrush();
-            brush.ImageSource = new BitmapImage(new Uri(ofd.FileName.ToString()));
+            var bodyImage = new Image
+            {
+                Source = new BitmapImage(new Uri(ofd.FileName)),
+            };
 
-            paintSurface.Width = brush.ImageSource.Width;
-            paintSurface.Height = brush.ImageSource.Height;
+            paintSurface.Width = bodyImage.Source.Width;
+            paintSurface.Height = bodyImage.Source.Height;
 
-            paintSurface.Background = brush;
+            paintSurface.Children.Add(bodyImage);
+            Canvas.SetTop(bodyImage, 0);
+            Canvas.SetLeft(bodyImage, 0);
 
             return ofd.SafeFileName + " - Paint";
         }

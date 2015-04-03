@@ -1,14 +1,14 @@
-﻿using System.Diagnostics;
-using FirstFloor.ModernUI.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
 using System;
 
 namespace Paint_v2._0
 {
-    public partial class Paint : ModernWindow
+    public partial class Paint
     {
+        private bool _isPressed;
+
         private Point _curPoint;
         private Items _currItems;
         private Draw _drawShape;
@@ -33,16 +33,23 @@ namespace Paint_v2._0
             if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
                 if (result == MessageBoxResult.Yes)
-                    IO.Save(paintSurface);
+                    IO.Save(PaintSurface);
 
                 EditOptions.ClearUndoAndRedoLists();
-                EditOptions.ClearCanvas(paintSurface);
+                EditOptions.ClearCanvas(PaintSurface);
 
-                this.Title = "Paint";
+                Title = "Untitled - Paint";
 
-                paintSurface.Width = 450;
-                paintSurface.Height = 350;
-                CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
+                PaintSurface.Width = 450;
+                PaintSurface.Height = 350;
+                CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
+
+                var transform = new TranslateTransform
+                {
+                    X = 0,
+                    Y = 0
+                };
+                CanvasResizeButton.RenderTransform = transform;
             }
         }
 
@@ -54,23 +61,29 @@ namespace Paint_v2._0
             if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
                 if (result == MessageBoxResult.Yes)
-                    IO.Save(paintSurface);
+                    IO.Save(PaintSurface);
 
                 EditOptions.ClearUndoAndRedoLists();
-                EditOptions.ClearCanvas(paintSurface);
-                IO.Open(paintSurface);
+                EditOptions.ClearCanvas(PaintSurface);
 
-                Title = "Paint";
+                Title = IO.Open(PaintSurface);
 
-                var width = Convert.ToInt32(paintSurface.Width);
-                var height = Convert.ToInt32(paintSurface.Height);
+                var width = Convert.ToInt32(PaintSurface.Width);
+                var height = Convert.ToInt32(PaintSurface.Height);
                 CanvasSize.Content = width + " x " + height;
+
+                var transform = new TranslateTransform
+                {
+                    X = PaintSurface.Width - 450,
+                    Y = 0 
+                };
+                CanvasResizeButton.RenderTransform = transform;
             }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            Title = IO.Save(paintSurface);
+            Title = IO.Save(PaintSurface);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -81,7 +94,7 @@ namespace Paint_v2._0
             if (result == MessageBoxResult.Yes || result == MessageBoxResult.No)
             {
                 if (result == MessageBoxResult.Yes)
-                    IO.Save(paintSurface);
+                    IO.Save(PaintSurface);
                 Application.Current.Shutdown();
             }
         }
@@ -93,7 +106,7 @@ namespace Paint_v2._0
 
             if (result == MessageBoxResult.Yes )
             {
-                IO.Save(paintSurface);
+                IO.Save(PaintSurface);
             }
         }
 
@@ -103,58 +116,67 @@ namespace Paint_v2._0
         {
             var shape = EditOptions.Undo();
             if (shape != null)
-                paintSurface.Children.Remove(shape);
+                PaintSurface.Children.Remove(shape);
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
             var shape = EditOptions.Redo();
             if (shape != null)
-                paintSurface.Children.Add(shape);
+                PaintSurface.Children.Add(shape);
         }
 
         //Image Transformations
 
         private void VerticalFlip_Click(object sender, RoutedEventArgs e)
         {
-			paintSurface.Background = ImageTransformations.FlipVertical(paintSurface);
-            paintSurface.Children.Clear();
+            ImageTransformations.FlipVertical(PaintSurface);
         }
 
         private void HorizontalFlip_Click(object sender, RoutedEventArgs e)
         {
-			paintSurface.Background = ImageTransformations.FlipHorizontal(paintSurface);
-            paintSurface.Children.Clear();
+			ImageTransformations.FlipHorizontal(PaintSurface);
         }
 
         private void RightRotate_Click(object sender, RoutedEventArgs e)
         {
-            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 90);
-            paintSurface.Children.Clear();
+            ImageTransformations.RotateImage(PaintSurface, 90);
 
-            var tmp = paintSurface.Width;
-            paintSurface.Width = paintSurface.Height;
-            paintSurface.Height = tmp;
+            var tmp = PaintSurface.Width;
+            PaintSurface.Width = PaintSurface.Height;
+            PaintSurface.Height = tmp;
 
-            CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
+            CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
+
+            var transform = new TranslateTransform
+            {
+                X = PaintSurface.Width - 450,
+                Y = 0
+            };
+            CanvasResizeButton.RenderTransform = transform;
         }
 
         private void LeftRotate_Click(object sender, RoutedEventArgs e)
         {
-            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 270);
-            paintSurface.Children.Clear();
+            ImageTransformations.RotateImage(PaintSurface, 270);
 
-            var tmp = paintSurface.Width;
-            paintSurface.Width = paintSurface.Height;
-            paintSurface.Height = tmp;
+            var tmp = PaintSurface.Width;
+            PaintSurface.Width = PaintSurface.Height;
+            PaintSurface.Height = tmp;
 
-            CanvasSize.Content = paintSurface.Width + " x " + paintSurface.Height;
+            CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
+
+            var transform = new TranslateTransform
+            {
+                X = PaintSurface.Width - 450,
+                Y = 0
+            };
+            CanvasResizeButton.RenderTransform = transform;
         }
 
         private void Rotate180_Click(object sender, RoutedEventArgs e)
         {
-            paintSurface.Background = ImageTransformations.RotateImage(paintSurface, 180);
-            paintSurface.Children.Clear();
+            ImageTransformations.RotateImage(PaintSurface, 180);
         }
 
         //Choose Items
@@ -194,11 +216,17 @@ namespace Paint_v2._0
             _currItems = Items.Line;
         }
 
+        private void ChangeColor_Click(object sender, MouseButtonEventArgs e)
+        {
+            _curPoint = e.GetPosition(ColorWheel);
+            _brushColor = drawingColorBox.Background = ImageTools.PickColor(ColorWheel.Source, _curPoint);
+        }
+
         //Actions On Canvas
 
-        private void MouseDown_Click(object sender, MouseButtonEventArgs e)
+        private void CanvasMouseDown_Click(object sender, MouseButtonEventArgs e)
         {
-            _curPoint = e.GetPosition(paintSurface);
+            _curPoint = e.GetPosition(PaintSurface);
             _drawShape = null;
 
             switch (_currItems)
@@ -219,10 +247,10 @@ namespace Paint_v2._0
                     _drawShape = new DrawPolyline(Brushes.White, 5);
                     break;
                 case Items.Fill:
-                    paintSurface.Background = ImageTools.Fill(paintSurface, _curPoint, _brushColor);
+                    PaintSurface.Background = ImageTools.Fill(PaintSurface, _curPoint, _brushColor);
                     break;
                 case Items.ColorPicker:
-                    _brushColor = drawingColorBox.Background = ImageTools.PickColor(paintSurface, _curPoint);
+                    _brushColor = drawingColorBox.Background = ImageTools.PickColor(PaintSurface, _curPoint);
                     break;
             }
 
@@ -230,41 +258,72 @@ namespace Paint_v2._0
                 _drawShape.GetStartCords(_curPoint.X, _curPoint.Y);
         }
 
-        private void Mouse_Move(object sender, MouseEventArgs e)
+        private void CanvasMouse_Move(object sender, MouseEventArgs e)
         {
-            _curPoint = e.GetPosition(paintSurface);
+            _curPoint = e.GetPosition(PaintSurface);
             Position.Content = _curPoint.X + ", " + _curPoint.Y + "px";
 
             if (e.LeftButton == MouseButtonState.Pressed && _drawShape != null)
             {
-                paintSurface.Children.Remove(_drawShape.ReturnShape());
+                PaintSurface.Children.Remove(_drawShape.ReturnShape());
                 _drawShape.GetEndCords(_curPoint.X, _curPoint.Y);
-                paintSurface.Children.Add(_drawShape.ReturnShape());
+                PaintSurface.Children.Add(_drawShape.ReturnShape());
             }
         }
 
-        private void MouseUp_Click(object sender, MouseButtonEventArgs e)
+        private void CanvasMouseUp_Click(object sender, MouseButtonEventArgs e)
         {
              if (_drawShape != null)
              {
-                 paintSurface.Children.Remove(_drawShape.ReturnShape());
+                 PaintSurface.Children.Remove(_drawShape.ReturnShape());
                  _drawShape.GetEndCords(_curPoint.X, _curPoint.Y);
 
                  var finalyShape = _drawShape.ReturnShape();
-                 paintSurface.Children.Add(finalyShape);
+                 PaintSurface.Children.Add(finalyShape);
                  EditOptions.SaveShape(finalyShape);
              }
         }
 
-        private void Mouse_Leave(object sender, MouseEventArgs e)
+        private void CanvasMouse_Leave(object sender, MouseEventArgs e)
         {
+            //_drawShape = null;
             Position.Content = "";
         }
 
-        private void ChangeColor_Click(object sender, MouseButtonEventArgs e)
+        //button to change canvas size
+
+        private void CanvasResizeButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _curPoint = e.GetPosition(ColorWheel);
-            _brushColor = drawingColorBox.Background = ImageTools.PickColor(ColorWheel.Source, _curPoint);
+            _isPressed = e.ChangedButton == MouseButton.Left;
+        }
+
+        private void CanvasResizeButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _isPressed = false;
+
+            PaintSurface.Width = Mouse.GetPosition(MyDockPanel).X - 5;
+            PaintSurface.Height = Mouse.GetPosition(MyDockPanel).Y - 5;
+
+            CanvasSize.Content = PaintSurface.Width + " x " + PaintSurface.Height;
+
+            var transform = new TranslateTransform
+            {
+                X = Mouse.GetPosition(myGrid).X,
+                Y = Mouse.GetPosition(MyDockPanel).Y - PaintSurface.Height - 5,
+            };
+            CanvasResizeButton.RenderTransform = transform;
+        }
+
+        private void CanvasResizeButtonMove(object sender, MouseEventArgs e)
+        {
+            if (!_isPressed) return;
+
+            var transform = new TranslateTransform
+            {
+                X = Mouse.GetPosition(myGrid).X,
+                Y = Mouse.GetPosition(MyDockPanel).Y - PaintSurface.Height,
+            };
+            CanvasResizeButton.RenderTransform = transform;
         }
     }
 }

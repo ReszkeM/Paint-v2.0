@@ -10,12 +10,12 @@ using System.IO;
 
 namespace Paint_v2._0
 {
-    class TranslateImage
+    public static class TranslateImage
     {
         public static ImageBrush CreateImageBrushFromVisual(Canvas paintSurface)
         {
             var bmp = CreateBitmapFromVisual(paintSurface);
-            var bmpSo = TranslateImage.CreateBitmapSourceFromBitmap(bmp);
+            var bmpSo = CreateBitmapSourceFromBitmap(bmp);
             var imgBrush = new ImageBrush(bmpSo);
             return imgBrush;
         }
@@ -91,6 +91,5 @@ namespace Paint_v2._0
 
             return bmpSo;
         }
-
     }
 }

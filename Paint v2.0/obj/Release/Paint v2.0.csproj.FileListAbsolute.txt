@@ -38,4 +38,5 @@ D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.dll
 D:\git\Paint v2.0\bin\Release\FirstFloor.ModernUI.xml
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint_v2._0.Properties.Resources.resources
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csproj.GenerateResource.Cache
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0_Content.g.cs
 D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Release\Paint v2.0.csprojResolveAssemblyReference.cache

@@ -24,3 +24,18 @@ D:\git\Paint v2.0\obj\Debug\Paint v2.0_MarkupCompile.cache
 D:\git\Paint v2.0\obj\Debug\Paint v2.0.g.resources
 D:\git\Paint v2.0\obj\Debug\Paint v2.0.exe
 D:\git\Paint v2.0\obj\Debug\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.exe
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\Paint v2.0.exe
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\Paint v2.0.pdb
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\FirstFloor.ModernUI.dll
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\bin\Debug\FirstFloor.ModernUI.xml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\MainWindow.baml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\App.baml
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\MainWindow.g.cs
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\App.g.cs
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0_Content.g.cs
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0_MarkupCompile.cache
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.g.resources
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint_v2._0.Properties.Resources.resources
+D:\Dropbox\C#\Paint v2.0\Paint v2.0\Paint v2.0\obj\Debug\Paint v2.0.csproj.GenerateResource.Cache

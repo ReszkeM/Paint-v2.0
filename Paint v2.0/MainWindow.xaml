@@ -7,6 +7,21 @@
                   Width="860" 
                   Height="640" 
                   Closing="Close_Click">
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="New_Click" />
+        <CommandBinding Command="Open" Executed="Open_Click" />
+        <CommandBinding Command="Save" Executed="Save_Click" />
+        <CommandBinding Command="Undo" Executed="Undo_Click" />
+        <CommandBinding Command="Redo" Executed="Redo_Click" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="New"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="Open"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="Save"/>
+        <KeyBinding Key="Z" Modifiers="Control" Command="Undo"/>
+        <KeyBinding Key="Y" Modifiers="Control" Command="Redo"/>
+    </Window.InputBindings>
+
     <DockPanel
         Background="#FFAEA3A3">
         <Menu 
@@ -23,24 +38,28 @@
             		Header="_New"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="New_Click" />
-                <Separator/>
+            		Click="New_Click"
+                    InputGestureText="ctrl+N"/>
+                    <Separator/>
                 <MenuItem
             		Header="_Open"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="Open_Click" />
+            		Click="Open_Click" 
+                    InputGestureText="ctrl+O"/>
                 <MenuItem
             		Header="_Save"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="Save_Click" />
+            		Click="Save_Click" 
+                    InputGestureText="ctrl+S"/>
                 <Separator />
                 <MenuItem
             		Header="_Exit"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="Exit_Click" />
+            		Click="Exit_Click" 
+                    InputGestureText="alt+f4"/>
             </MenuItem>
             <MenuItem
                 Header="_Edit" 
@@ -52,12 +71,14 @@
             		Header="_Undo"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="Undo_Click" />
+            		Click="Undo_Click" 
+                    InputGestureText="ctrl+z"/>
                 <MenuItem
             		Header="_Redo"
                     BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
                     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-            		Click="Redo_Click" />
+            		Click="Redo_Click" 
+                    InputGestureText="ctrl+y"/>
             </MenuItem>
             <MenuItem
                 Header="_View" 
@@ -347,6 +368,7 @@
                 Height="70"/>
         </DockPanel>
         <DockPanel
+            Name="MyDockPanel"
             Margin="1,0,1,1"
             Background="#FFC6D3DA">
             <StatusBar
@@ -376,34 +398,53 @@
                 DockPanel.Dock="Top"
 			    Height="auto"
 			    Width="auto"
-                Margin="5" 
+                Margin="5,5,0,0" 
 			    VerticalScrollBarVisibility="Auto"
-			    HorizontalScrollBarVisibility="Auto">
+			    HorizontalScrollBarVisibility="Auto" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <ScrollViewer.Effect>
+                    <DropShadowEffect 
+                            BlurRadius="15"
+                            Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}" 
+                            RenderingBias="Quality"/>
+                </ScrollViewer.Effect>
                 <Canvas
-				    Name="paintSurface"
+				    Name="PaintSurface"
 				    VerticalAlignment="Top"
-				    MouseLeftButtonDown="MouseDown_Click"
-				    MouseUp="MouseUp_Click"
-				    MouseMove="Mouse_Move"
-                    MouseLeave="Mouse_Leave"
+                    HorizontalAlignment="Left"
+				    MouseLeftButtonDown="CanvasMouseDown_Click"
+				    MouseUp="CanvasMouseUp_Click"
+				    MouseMove="CanvasMouse_Move"
+                    MouseLeave="CanvasMouse_Leave"
 				    Height="350"
 				    Width="450"
 				    Background="#FFFFFFFF" 
-                    HorizontalAlignment="Left">
-                    <Canvas.Effect>
-                        <DropShadowEffect 
-                            BlurRadius="15"
-                            Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
-                    </Canvas.Effect>
+                    Margin="0" >
                 </Canvas>
             </ScrollViewer>
-
+            <Grid 
+                Name="myGrid" 
+                HorizontalAlignment="left" 
+                VerticalAlignment="top" 
+                Margin="455,0,0,0">
+                <Button 
+                    Name="CanvasResizeButton"
+                    PreviewMouseDown="CanvasResizeButtonDown"
+                    PreviewMouseUp="CanvasResizeButtonUp"
+                    PreviewMouseMove="CanvasResizeButtonMove"
+                    BorderBrush="Black"
+                    Width="5" 
+                    Height="5" 
+                    Cursor="SizeNWSE"/>
+            </Grid>
             <Border 
                 DockPanel.Dock="Bottom"
                 VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
                 Background="#FFAEA3A3"
                 Width="auto"
-                Height="1"/>
+                Height="1" />
         </DockPanel>
     </DockPanel>
 </mui:ModernWindow>

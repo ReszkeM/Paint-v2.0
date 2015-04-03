@@ -1,34 +1,49 @@
 ﻿using System.Drawing;
-using System.Windows.Media;
 using System.Windows.Controls;
+using DrawingImage = System.Drawing.Image;
+using ControlsImage = System.Windows.Controls.Image;
 
 namespace Paint_v2._0
 {
     public static class ImageTransformations
     {
-        public static ImageBrush FlipVertical(Canvas paintSurface)
+        public static ControlsImage FlipVertical(Canvas paintSurface)
         {
             var bmp = TranslateImage.CreateBitmapFromVisual(paintSurface);
 
             bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
 
-            var bmpSo = TranslateImage.CreateBitmapSourceFromBitmap(bmp);
+            var bodyImage = new ControlsImage
+            {
+                Source = TranslateImage.CreateBitmapSourceFromBitmap(bmp)
+            };
 
-            return new ImageBrush(bmpSo);
+            paintSurface.Children.Add(bodyImage);
+            Canvas.SetTop(bodyImage, 0);
+            Canvas.SetLeft(bodyImage, 0);
+
+            return bodyImage;
         }
 
-        public static ImageBrush FlipHorizontal(Canvas paintSurface)
+        public static ControlsImage FlipHorizontal(Canvas paintSurface)
         {
             var bmp = TranslateImage.CreateBitmapFromVisual(paintSurface);
 
             bmp.RotateFlip(RotateFlipType.Rotate180FlipY);
 
-            var bmpSo = TranslateImage.CreateBitmapSourceFromBitmap(bmp);
+            var bodyImage = new ControlsImage
+            {
+                Source = TranslateImage.CreateBitmapSourceFromBitmap(bmp)
+            };
 
-            return new ImageBrush(bmpSo);
+            paintSurface.Children.Add(bodyImage);
+            Canvas.SetTop(bodyImage, 0);
+            Canvas.SetLeft(bodyImage, 0);
+
+            return bodyImage;
         }
 
-        public static ImageBrush RotateImage(Canvas paintSurface, int angle)
+        public static ControlsImage RotateImage(Canvas paintSurface, int angle)
         {
             var bmp = TranslateImage.CreateBitmapFromVisual(paintSurface);
 
@@ -45,9 +60,16 @@ namespace Paint_v2._0
                     break;
             }
 
-            var bmpSo = TranslateImage.CreateBitmapSourceFromBitmap(bmp);
+            var bodyImage = new ControlsImage
+            {
+                Source = TranslateImage.CreateBitmapSourceFromBitmap(bmp)
+            };
 
-            return new ImageBrush(bmpSo);
+            paintSurface.Children.Add(bodyImage);
+            Canvas.SetTop(bodyImage, 0);
+            Canvas.SetLeft(bodyImage, 0);
+
+            return bodyImage;
         }
     }
 }
